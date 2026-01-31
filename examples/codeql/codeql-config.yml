@@ -1,0 +1,49 @@
+# CodeQL Configuration
+
+name: "Custom CodeQL Config"
+
+# Disable default queries
+disable-default-queries: false
+
+# Specify query packs or paths
+queries:
+  - uses: security-extended
+  - uses: security-and-quality
+
+# Query filters
+query-filters:
+  - exclude:
+      id: 
+        - js/angular/disabling-sce
+        - js/angular/insecure-url-allowlist
+  - include:
+      tags:
+        - security
+        - experimental
+
+# Paths to include in analysis
+paths:
+  - src
+  - lib
+  - app
+
+# Paths to exclude from analysis
+paths-ignore:
+  - node_modules
+  - dist
+  - build
+  - '**/*.test.js'
+  - '**/*.spec.js'
+  - test
+  - tests
+  - vendor
+
+# Additional packs to use
+packs:
+  - codeql/javascript-queries
+  - codeql/javascript-all
+
+# External repository token (for private package dependencies)
+# registries:
+#   - url: https://npm.pkg.github.com
+#     token: ${{ secrets.GITHUB_TOKEN }}
