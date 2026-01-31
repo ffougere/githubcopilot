@@ -1,0 +1,91 @@
+version: 2
+
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    # Group updates together
+    groups:
+      development-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+    # Commit message configuration
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+      include: "scope"
+    # Reviewers and assignees
+    reviewers:
+      - "security-team"
+    assignees:
+      - "dev-lead"
+    # Labels
+    labels:
+      - "dependencies"
+      - "automated"
+    # Allow up to 10 open PRs
+    open-pull-requests-limit: 10
+    # Rebase strategy
+    rebase-strategy: "auto"
+
+  # Enable version updates for pip
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps)"
+    reviewers:
+      - "python-team"
+    labels:
+      - "dependencies"
+      - "python"
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "github-actions"
+      - "ci/cd"
+
+  # Enable version updates for Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(docker)"
+    labels:
+      - "docker"
+      - "dependencies"
+
+# Additional configuration examples:
+#
+# Ignore specific dependencies:
+#   ignore:
+#     - dependency-name: "lodash"
+#       versions: ["4.x"]
+#
+# Target specific branch:
+#   target-branch: "develop"
+#
+# Increase pull request limit:
+#   open-pull-requests-limit: 20
+#
+# Add milestone:
+#   milestone: 10
+#
+# Allow external code execution (use with caution):
+#   insecure-external-code-execution: allow
